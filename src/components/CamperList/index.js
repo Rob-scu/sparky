@@ -3,7 +3,7 @@ import { Header, Image, Table } from 'semantic-ui-react'
 
 
 class CamperList extends Component {
-  state = { camperList: [] }
+  state = { camperList: [], sortBy: 'username', asc: 1 }
   async componentDidMount() {
     const p = await fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent')
     const stuff = await p.json()
@@ -11,49 +11,29 @@ class CamperList extends Component {
     this.setState({ camperList: stuff })
   }
 
-
-  /*
-
-
-alltime
-:
-6294
-
-img
-:
-"https://avatars2.githubusercontent.com/u/11348778?v=4"
-
-lastUpdate
-:
-"2017-10-08T17:24:28.183Z"
-
-recent
-:
-125
-
-username
-:
-"Manish-Giri"
-
-
-   */
+  handleHeaderClick = (sortBy) => {
+    if (sortBy === this.state.sortBy)
+      this.setState({ asc: this.state.asc * -1 })
+    else
+      this.setState({ asc: 1, sortBy })
+  }
 
   render() {
-    const { camperList } = this.state
+    const { camperList, sortBy, asc } = this.state
     return (
       <Table basic='very' celled collapsing>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Person</Table.HeaderCell>
-            <Table.HeaderCell>All Time High</Table.HeaderCell>
-            <Table.HeaderCell></Table.HeaderCell>
+            <Table.HeaderCell onClick={() => this.handleHeaderClick('username')}>Person</Table.HeaderCell>
+            <Table.HeaderCell onClick={() => this.handleHeaderClick('alltime')}>All Time High</Table.HeaderCell>
+            <Table.HeaderCell onClick={() => this.handleHeaderClick('lastUpdate')}>Last Update</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {camperList.sort( (campera, camperb) => {
-            return new Date(campera.lastUpdate) < new Date(camperb.lastUpdate) ? -1 : 1
-          }).reverse().map( (camper) => {
+            return campera[sortBy] > camperb[sortBy] ? asc * 1 : asc * -1
+          }).map( (camper) => {
           return <Table.Row key={camper.username}>
             <Table.Cell>
               <Header as='h4' image>
