@@ -16,6 +16,10 @@
   color: white;
 }
 
+.table-header {
+  cursor: pointer;
+}
+
 .App-title {
   font-size: 1.5em;
 }
