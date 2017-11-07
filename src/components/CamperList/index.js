@@ -2,26 +2,26 @@ import React, { Component } from 'react'
 import { Header, Image, Table } from 'semantic-ui-react'
 
 class CamperList extends Component {
-  state = { camperList: [], sortBy: 'username', asc: 1 }
+  // state = { camperList: [] }
+  //
+  // async componentDidMount() {
+  //   const p = await fetch(
+  //     'https://fcctop100.herokuapp.com/api/fccusers/top/recent',
+  //   )
+  //   const stuff = await p.json()
+  //   console.log(stuff)
+  //   this.setState({ camperList: stuff })
+  // }
 
-  async componentDidMount() {
-    const p = await fetch(
-      'https://fcctop100.herokuapp.com/api/fccusers/top/recent',
-    )
-    const stuff = await p.json()
-    console.log(stuff)
-    this.setState({ camperList: stuff })
-  }
-
-  handleHeaderClick = sortBy => {
-    if (sortBy === this.state.sortBy)
-      this.setState({ asc: this.state.asc * -1 })
-    else this.setState({ asc: 1, sortBy })
-  }
+  // handleHeaderClick = sortBy => {
+  //   if (sortBy === this.state.sortBy)
+  //     this.setState({ asc: this.state.asc * -1 })
+  //   else this.setState({ asc: 1, sortBy })
+  // }
 
   render() {
-    const { camperList, asc } = this.state
-    const { changeSortBy, sortBy } = this.props
+    // const { camperList } = this.state
+    const { changeSortBy, sortBy, asc, campers = [] } = this.props
     return (
       <Table basic="very" celled collapsing>
         <Table.Header className={'table-header'}>
@@ -45,7 +45,7 @@ class CamperList extends Component {
         </Table.Header>
 
         <Table.Body>
-          {camperList
+          {campers
             .sort((campera, camperb) => {
               return campera[sortBy] > camperb[sortBy] ? asc * 1 : asc * -1
             })
