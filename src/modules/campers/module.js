@@ -4,6 +4,7 @@ const actions = {
   toggleSort: 'TOGGLE_SORT',
   changeSortBy: 'CHANGE_SORT_BY',
   receiveCampers: 'GETA_DA_CAMPERSA',
+  allTimeCampers: 'ALL_TIME_CAMPERS',
 }
 
 // export const simpleActionCreator = () => {
@@ -19,6 +20,13 @@ export const changeSortBy = payload => {
 export const receiveCampers = campers => {
   return { type: actions.receiveCampers, payload: campers }
 }
+
+// export function allTimeCampers(campers) {
+//   return {
+//     type: actions.allTimeCampers,
+//     payload: campers,
+//   }
+// }
 
 const initialState = {
   asc: 1,
@@ -40,6 +48,8 @@ export default (state = initialState, action) => {
       // console.log('Welcome home!')
       return state
     case actions.receiveCampers:
+      return { ...state, campers: action.payload }
+    case actions.allTimeCampers:
       return { ...state, campers: action.payload }
     default:
       return state

@@ -5,16 +5,30 @@ import 'semantic-ui-css/semantic.min.css'
 import { Header, Menu, Container, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import CamperList from './modules/campers/ConnectedCamperList'
+import { NavLink } from 'redux-first-router-link'
 
 const FixedMenu = () => (
   <Menu fixed="top" size="large">
     <Container>
-      <Menu.Item as="a" href="/" active>
+      <Menu.Item
+        as={NavLink}
+        exact
+        to="/"
+        active
+        activeStyle={{ color: 'red' }}
+      >
         Home
       </Menu.Item>
-      <Menu.Item as="a">Work</Menu.Item>
-      <Menu.Item as="a">Company</Menu.Item>
-      <Menu.Item as="a">Careers</Menu.Item>
+      <Menu.Item
+        as={NavLink}
+        to="/alltime"
+        active
+        exact
+        activeStyle={{ color: 'red' }}
+      >
+        ALL TIME
+      </Menu.Item>
+
       <Menu.Menu position="right">
         <Menu.Item className="item">
           <Button as="a">Log in</Button>

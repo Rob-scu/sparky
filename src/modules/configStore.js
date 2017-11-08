@@ -1,4 +1,4 @@
-import camperSorter, { receiveCampers } from './campers/module'
+import camperSorter, { allTimeCampers, receiveCampers } from './campers/module'
 import { connectRoutes } from 'redux-first-router'
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import createHistory from 'history/createBrowserHistory'
@@ -17,6 +17,17 @@ const routesMap = {
       )
       const stuff = await p.json()
       console.log(stuff)
+      dispatch(receiveCampers(stuff))
+    },
+  },
+  ALLTIME: {
+    path: '/alltime',
+    thunk: async (dispatch, getstate) => {
+      // dispatch({ type: 'THIS_IS_JUST_AN_EXAMPLE_AND_IS_NOT_NEEDED_TO_ACCOMPLISH_OUR_TASK' })
+      const p = await fetch(
+        'https://fcctop100.herokuapp.com/api/fccusers/top/alltime',
+      )
+      const stuff = await p.json()
       dispatch(receiveCampers(stuff))
     },
   },
