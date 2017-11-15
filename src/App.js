@@ -17,7 +17,7 @@ const FixedMenu = () => (
         active
         activeStyle={{ color: 'red' }}
       >
-        Home
+        Last 30 Days
       </Menu.Item>
       <Menu.Item
         as={NavLink}
@@ -26,7 +26,7 @@ const FixedMenu = () => (
         exact
         activeStyle={{ color: 'red' }}
       >
-        ALL TIME
+        All Time
       </Menu.Item>
 
       <Menu.Menu position="right">
